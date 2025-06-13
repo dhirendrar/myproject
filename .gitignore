@@ -1,0 +1,28 @@
+# editor generated backup files
+.backup
+.bak
+~$
+.metadata/
+.recommenders/
+# code
+**/target
+hs_err*
+artifacts/
+logs/
+tmp/
+**/build
+.gradle/
+gBuild/
+buildSrc/build/
+**/.classpath
+**/.project
+**/.settings
+**/.idea
+**/*.iml
+**/*.ipr
+**/*.iws
+.shelf/
+# generated sources
+**/src/test-gen
+**/src/gen
+**/src-gen
