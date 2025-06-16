@@ -1,9 +1,7 @@
 package com.gtn.customerreward.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,10 +19,16 @@ import java.util.Date;
 @Table(name = "purchase")
 public class Purchase {
     @Id
-    @GeneratedValue
-    private Long purchaseId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long customerId;
+    /*@Column(name = "customer_id")
+    private Long customerId;*/
     private Double amount;
     private LocalDate purchaseDate;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
+    private Customer customer;
 }

@@ -15,7 +15,7 @@ public class CustomerMapper {
      */
     public CustomerDetailDTO toDTO(Customer customer) {
         if (customer == null) return null;
-        return new CustomerDetailDTO(customer.getCustomerId(), customer.getName());
+        return new CustomerDetailDTO(customer.getId(), customer.getName());
     }
 
     /**
@@ -27,7 +27,7 @@ public class CustomerMapper {
     public Customer toEntity(CustomerDetailDTO dto) {
         if (dto == null) return null;
         Customer customer = new Customer();
-        customer.setCustomerId(dto.getId());
+        customer.setId(dto.getId());
         customer.setName(dto.getName());
         return customer;
     }
