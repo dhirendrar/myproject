@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+application:
+  name: agentictool
+  datasource:
+    url: jdbc:postgresql://localhost:5432/agentdb
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+
+openai:
+  api-key: sk-proj-*
+github:
+  repo: dhirendrar/agentictool
