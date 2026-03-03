@@ -1,0 +1,257 @@
+{
+  "info": {
+    "name": "AI Agentic System API",
+    "description": "Complete API collection for AI Agentic System with RAG and Tool Calling",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "sessionId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Create Session",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "pm.collectionVariables.set('sessionId', response.sessionId);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"metadata\": {\n    \"user\": \"test_user\",\n    \"timestamp\": \"{{$timestamp}}\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/sessions",
+          "host": ["{{baseUrl}}"],
+          "path": ["sessions"]
+        }
+      }
+    },
+    {
+      "name": "Chat - Calculator Tool",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"What is 156 divided by 12?\",\n  \"sessionId\": \"{{sessionId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat"]
+        }
+      }
+    },
+    {
+      "name": "Chat - Wikipedia Search",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Search Wikipedia for TypeScript programming language\",\n  \"sessionId\": \"{{sessionId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat"]
+        }
+      }
+    },
+    {
+      "name": "Chat - Calendar Lookup",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"What events do I have on 2024-03-15?\",\n  \"sessionId\": \"{{sessionId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat"]
+        }
+      }
+    },
+    {
+      "name": "Chat - Multiple Operations",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Calculate 25 * 4, then add 50 to the result\",\n  \"sessionId\": \"{{sessionId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat"]
+        }
+      }
+    },
+    {
+      "name": "Add Documents to RAG",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documents\": [\n    {\n      \"content\": \"TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.\",\n      \"metadata\": {\n        \"source\": \"documentation\",\n        \"topic\": \"typescript\"\n      }\n    },\n    {\n      \"content\": \"Node.js is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside a web browser.\",\n      \"metadata\": {\n        \"source\": \"documentation\",\n        \"topic\": \"nodejs\"\n      }\n    },\n    {\n      \"content\": \"PostgreSQL is a powerful, open source object-relational database system with over 30 years of active development.\",\n      \"metadata\": {\n        \"source\": \"documentation\",\n        \"topic\": \"database\"\n      }\n    },\n    {\n      \"content\": \"RAG (Retrieval-Augmented Generation) combines information retrieval with text generation to provide accurate, context-aware responses.\",\n      \"metadata\": {\n        \"source\": \"documentation\",\n        \"topic\": \"ai\"\n      }\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rag/documents",
+          "host": ["{{baseUrl}}"],
+          "path": ["rag", "documents"]
+        }
+      }
+    },
+    {
+      "name": "RAG Query - TypeScript",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"What is TypeScript?\",\n  \"topK\": 3\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rag/query",
+          "host": ["{{baseUrl}}"],
+          "path": ["rag", "query"]
+        }
+      }
+    },
+    {
+      "name": "RAG Query - Database",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"Tell me about PostgreSQL database\",\n  \"topK\": 2\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/rag/query",
+          "host": ["{{baseUrl}}"],
+          "path": ["rag", "query"]
+        }
+      }
+    },
+    {
+      "name": "Chat with RAG",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"What is RAG and how does it work?\",\n  \"sessionId\": \"{{sessionId}}\",\n  \"useRAG\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat"]
+        }
+      }
+    },
+    {
+      "name": "Get Session History",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/sessions/{{sessionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["sessions", "{{sessionId}}"]
+        }
+      }
+    },
+    {
+      "name": "Delete Session",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/sessions/{{sessionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["sessions", "{{sessionId}}"]
+        }
+      }
+    }
+  ]
+}
